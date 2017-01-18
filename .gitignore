@@ -1,6 +1,8 @@
 /logs/*
 node_modules
 data/*
-yarn.lock
 .env
 *.log
+testBundle.js
+coverage
+*.lock

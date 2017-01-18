@@ -4,8 +4,9 @@
   "description": "NodeJS+Express Template for Service",
   "main": "server.js",
   "scripts": {
-    "test": "NODE_ENV=test ./node_modules/mocha/bin/mocha",
-    "start": "./node_modules/.bin/gulp start"
+    "start": "./node_modules/.bin/gulp start",
+    "test": "NODE_ENV=test ./node_modules/.bin/webpack -w --progress --colors --config webpack-test.config.js",
+    "test:coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha test"
   },
   "author": "Thinknet Company",
   "license": "ISC",
@@ -37,8 +38,12 @@
     "chai": "^3.5.0",
     "gulp": "^3.9.1",
     "gulp-nodemon": "^2.2.1",
-    "mocha": "^3.1.0",
+    "istanbul": "0.4.5",
+    "mocha": "^3.2.0",
     "nodemon": "^1.10.2",
-    "supertest": "^2.0.0"
+    "supertest": "^2.0.0",
+    "webpack": "^1.14.0",
+    "webpack-node-externals": "^1.5.4",
+    "webpack-shell-plugin": "0.4.3"
   }
 }
