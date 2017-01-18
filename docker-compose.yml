@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+
+### Workspace Utilities Container ###########################
+    nodejs:
+        image: gokusenz/dockergk:nodejs
+        ports:
+            - "8080:8080"
+        volumes:
+            - .:/usr/src/app
+
+### MongoDB Container #######################################
+    mongo:
+        image: gokusenz/dockergk:mongo
+        ports:
+            - "27017:27017"
+        volumes:
+            - ./data/mongo:/data/db
+
+### Add more Containers below ###############################
+# use [ docker network create microservicenetwork ] เพื่อสร้าง mapmagiccloud(your network name้) network ขึ้นมาก่อน
+networks:
+    default:
+        external:
+            name: microservicenetwork

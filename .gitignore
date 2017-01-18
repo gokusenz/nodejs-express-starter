@@ -1,0 +1,6 @@
+/logs/*
+node_modules
+data/*
+yarn.lock
+.env
+*.log
