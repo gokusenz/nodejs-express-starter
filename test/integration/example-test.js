@@ -1,6 +1,6 @@
 'use strict';
 
-const app = require('../server.js'),
+const app = require('../../server.js'),
     should = require('chai').should(),
     expect = require('chai').expect,
     server = app.listen(),
