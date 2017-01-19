@@ -9,7 +9,7 @@ gulp.task('start', () => {
 });
 
 gulp.task('test', () => {
-  gulp.watch(['test/**', 'lib/**', 'app/*'], ['alltest']);
+  gulp.watch(['test/**', 'app/**', 'app/*/**'], ['unittest']);
 });
 
 gulp.task('unittest', shell.task([
