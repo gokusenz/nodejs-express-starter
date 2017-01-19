@@ -1,4 +1,4 @@
-FROM 172.16.20.223/nodejs:latest
+FROM gokusenz/dockergk:nodejs
 
 COPY . /usr/src/app/
 
