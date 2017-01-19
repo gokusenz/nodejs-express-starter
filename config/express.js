@@ -1,34 +1,31 @@
-'use strict';
-
 /**
  * Module dependencies.
  */
-const fs            = require('fs');
-const path          = require('path');
-const express       = require('express');
-const session       = require('express-session');
-const compression   = require('compression');
-const bodyParser    = require('body-parser');
+const fs = require('fs');
+const path = require('path');
+// const express = require('express');
+// const session = require('express-session');
+const compression = require('compression');
+const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
-const morgan        = require('morgan');
-const winston       = require('winston');
-const helmet        = require('helmet');
+const morgan = require('morgan');
+const winston = require('winston');
+const helmet = require('helmet');
 
 const env = process.env.NODE_ENV || 'development';
-const cookieSecret = process.env.SESSION_SECRET || 'secret';
+// const cookieSecret = process.env.SESSION_SECRET || 'secret';
 
 /**
  * Expose
  */
 
 module.exports = function (app) {
-
   app.use(helmet.noCache());
   app.use(helmet.frameguard());
 
   // Compression middleware (should be placed before express.static)
   app.use(compression({
-    threshold: 512
+    threshold: 512,
   }));
 
   // Use winston on production
@@ -36,31 +33,30 @@ module.exports = function (app) {
   if (env !== 'development') {
     log = {
       stream: {
-        write: message => winston.info(message)
-      }
+        write: message => winston.info(message),
+      },
     };
   }
 
   // Don't log during tests
   // Logging middleware
-    if (env !== 'test')
-      app.use(morgan(log));
-    //
-    // console.log(path.join(__dirname, 'access.log'));
+  if (env !== 'test') {
+    app.use(morgan(log));
+  }
 
-    var accessLogStream = fs.createWriteStream(path.join(__dirname, '../logs/access.log'), {flags: 'a'})
+  const accessLogStream = fs.createWriteStream(path.join(__dirname, '../logs/access.log'), { flags: 'a' });
 
-    // setup the logger
-    app.use(morgan('combined', {stream: accessLogStream}))
+  // setup the logger
+  app.use(morgan('combined', { stream: accessLogStream }));
 
   // bodyParser should be above methodOverride
   app.use(bodyParser.json());
-  app.use(bodyParser.json({ type: 'application/vnd.api+json' }))
+  app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
   app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(methodOverride(function (req) {
+  app.use(methodOverride((req) => {
     if (req.body && typeof req.body === 'object' && '_method' in req.body) {
       // look in urlencoded POST bodies and delete it
-      var method = req.body._method;
+      const method = req.body._method;
       delete req.body._method;
       return method;
     }
